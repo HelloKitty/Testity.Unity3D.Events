@@ -1,0 +1,5 @@
+C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Events\bin\Debug\Testity.Unity3D.Events.dll
+C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Events\bin\Debug\Testity.Unity3D.Events.pdb
+C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Events\obj\Debug\Testity.Unity3D.Events.csprojResolveAssemblyReference.cache
+C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Events\obj\Debug\Testity.Unity3D.Events.dll
+C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Events\obj\Debug\Testity.Unity3D.Events.pdb
