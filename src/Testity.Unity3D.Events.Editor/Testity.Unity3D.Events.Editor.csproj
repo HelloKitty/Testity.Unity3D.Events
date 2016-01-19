@@ -36,9 +36,27 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\lib\Static Dependencies\UnityEngine\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\lib\Static Dependencies\UnityEngine\UnityEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtendedEventPropertyDrawer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wizards\BoundsWizard.cs" />
+    <Compile Include="Wizards\FieldWizard.cs" />
+    <Compile Include="Wizards\MatrixWizard.cs" />
+    <Compile Include="Wizards\MethodWizard.cs" />
+    <Compile Include="Wizards\RectWizard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Testity.Unity3D.Events\Testity.Unity3D.Events.csproj">
+      <Project>{2c7fd93d-93dd-46c8-99a0-ae4be87bb7b3}</Project>
+      <Name>Testity.Unity3D.Events</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
