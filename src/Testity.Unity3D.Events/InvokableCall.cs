@@ -42,9 +42,17 @@ namespace Testity.Unity3D.Events
 
     public class InvokableCall<T1> : TestityBaseInvokableCall
     {
-        public InvokableCall(object target, MethodInfo theFunction) : base(target, theFunction)
+        public InvokableCall(object target, MethodInfo theFunction) 
+			: base(target, theFunction)
         {
-            this.Delegate += (TestityAction<T1>)theFunction.CreateDelegate(Type.GetTypeFromHandle(typeof(TestityAction<T1>).TypeHandle), target);
+			//We need to check if it's a TestityBehaviour first
+			if (CheckIsTestityTarget(target))
+			{
+				//if it is we need to unbox the EngineScriptComponent reference from the TestityBehaviour
+				target = UnboxTestityComponentFromObject(target);
+			}
+
+			this.Delegate += (TestityAction<T1>)theFunction.CreateDelegate(Type.GetTypeFromHandle(typeof(TestityAction<T1>).TypeHandle), target);
         }
 
         public InvokableCall(TestityAction<T1> action)
@@ -75,9 +83,17 @@ namespace Testity.Unity3D.Events
 
     public class InvokableCall<T1, T2> : TestityBaseInvokableCall
     {
-        public InvokableCall(object target, MethodInfo theFunction) : base(target, theFunction)
+        public InvokableCall(object target, MethodInfo theFunction) 
+			: base(target, theFunction)
         {
-            this.Delegate = (TesityAction<T1, T2>)theFunction.CreateDelegate(typeof(TesityAction<T1, T2>), target);
+			//We need to check if it's a TestityBehaviour first
+			if (CheckIsTestityTarget(target))
+			{
+				//if it is we need to unbox the EngineScriptComponent reference from the TestityBehaviour
+				target = UnboxTestityComponentFromObject(target);
+			}
+
+			this.Delegate = (TesityAction<T1, T2>)theFunction.CreateDelegate(typeof(TesityAction<T1, T2>), target);
         }
 
         public InvokableCall(TesityAction<T1, T2> action)
@@ -109,9 +125,17 @@ namespace Testity.Unity3D.Events
 
     public class InvokableCall<T1, T2, T3> : TestityBaseInvokableCall
     {
-        public InvokableCall(object target, MethodInfo theFunction) : base(target, theFunction)
+        public InvokableCall(object target, MethodInfo theFunction) 
+			: base(target, theFunction)
         {
-            this.Delegate = (TestityAction<T1, T2, T3>)theFunction.CreateDelegate(typeof(TestityAction<T1, T2, T3>), target);
+			//We need to check if it's a TestityBehaviour first
+			if (CheckIsTestityTarget(target))
+			{
+				//if it is we need to unbox the EngineScriptComponent reference from the TestityBehaviour
+				target = UnboxTestityComponentFromObject(target);
+			}
+
+			this.Delegate = (TestityAction<T1, T2, T3>)theFunction.CreateDelegate(typeof(TestityAction<T1, T2, T3>), target);
         }
 
         public InvokableCall(TestityAction<T1, T2, T3> action)
@@ -145,9 +169,17 @@ namespace Testity.Unity3D.Events
     public class InvokableCall<T1, T2, T3, T4> : TestityBaseInvokableCall
     {
 
-        public InvokableCall(object target, MethodInfo theFunction) : base(target, theFunction)
+        public InvokableCall(object target, MethodInfo theFunction) 
+			: base(target, theFunction)
         {
-            this.Delegate = (TestityAction<T1, T2, T3, T4>)theFunction.CreateDelegate(typeof(TestityAction<T1, T2, T3, T4>), target);
+			//We need to check if it's a TestityBehaviour first
+			if (CheckIsTestityTarget(target))
+			{
+				//if it is we need to unbox the EngineScriptComponent reference from the TestityBehaviour
+				target = UnboxTestityComponentFromObject(target);
+			}
+
+			this.Delegate = (TestityAction<T1, T2, T3, T4>)theFunction.CreateDelegate(typeof(TestityAction<T1, T2, T3, T4>), target);
         }
 
         public InvokableCall(TestityAction<T1, T2, T3, T4> action)
