@@ -439,7 +439,7 @@ namespace Testity.Unity3D.Events.Editor
 			//If it's an ITestityBehaviour type it needs to be handled differently
 			if (typeof(ITestityBehaviour).IsAssignableFrom(type))
 			{
-				Debug.Log("Targeting Testity Behaviour.");
+				//Debug.Log("Targeting Testity Behaviour.");
 
 				type = type.BaseType.GetGenericArguments().First(); //this will grab the EngineScriptComponent child Type used as a generic arg in TestityBehaviour<T>
 			}
