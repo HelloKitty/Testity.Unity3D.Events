@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Testity.EngineComponents.Unity3D;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -431,7 +432,18 @@ namespace Testity.Unity3D.Events.Editor
 			{
 				return list;
 			}
+
+			//MODIFIED: This is a test to see if this is where I need to change stuff
 			Type type = target.GetType();
+
+			//If it's an ITestityBehaviour type it needs to be handled differently
+			if (typeof(ITestityBehaviour).IsAssignableFrom(type))
+			{
+				Debug.Log("Targeting Testity Behaviour.");
+
+				type = type.BaseType.GetGenericArguments().First(); //this will grab the EngineScriptComponent child Type used as a generic arg in TestityBehaviour<T>
+			}
+
 			List<MethodInfo> list2 = (
 				from x in type.GetMethods()
 				where !x.IsSpecialName

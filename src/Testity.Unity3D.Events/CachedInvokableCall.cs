@@ -11,6 +11,9 @@ namespace Testity.Unity3D.Events
 		public TestityCachedInvokableCall(UnityEngine.Object target, MethodInfo theFunction, T argument)
 			: base(target, theFunction)
 		{
+			if (m_Arg1 == null)
+				m_Arg1 = new object[1];
+
 			this.m_Arg1[0] = argument;
 		}
 

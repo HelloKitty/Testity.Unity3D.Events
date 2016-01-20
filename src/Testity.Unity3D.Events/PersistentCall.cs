@@ -87,7 +87,9 @@ namespace Testity.Unity3D.Events
 			if (!string.IsNullOrEmpty(arguments.unityObjectArgumentAssemblyTypeName))
 			{
 				type = Type.GetType(arguments.unityObjectArgumentAssemblyTypeName, false) ?? typeof(UnityEngine.Object);
-			}
+
+				//Debug.Log("Calling on Type: " + type.FullName + " method name " + method.Name);
+            }
 			Type type1 = typeof(TestityCachedInvokableCall<>).MakeGenericType(new Type[] { type });
 			ConstructorInfo constructor = type1.GetConstructor(new Type[] { typeof(UnityEngine.Object), typeof(MethodInfo), type });
 
@@ -109,7 +111,9 @@ namespace Testity.Unity3D.Events
 			{
 				return null;
 			}
+
 			MethodInfo methodInfo = theEvent.FindMethod(this);
+
 			if (methodInfo == null)
 			{
 				return null;

@@ -94,7 +94,9 @@ namespace Testity.Unity3D.Events
 
 		protected TestityEvent()
 		{
-		}
+			if (m_InvokeArray == null)
+				m_InvokeArray = new object[1];
+        }
 
 		public void AddListener(TestityAction<T0> call)
 		{
@@ -121,6 +123,8 @@ namespace Testity.Unity3D.Events
 
 		public override TestityBaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
 		{
+			//Debug.Log("Target Type: " + target.GetType().ToString() + " method name " + theFunction.Name);
+
 			return new InvokableCall<T0>(target, theFunction);
 		}
 
@@ -131,8 +135,16 @@ namespace Testity.Unity3D.Events
 
 		public void Invoke(T0 arg0)
 		{
-			this.m_InvokeArray[0] = arg0;
-			base.Invoke(this.m_InvokeArray);
+			try
+			{
+				this.m_InvokeArray[0] = arg0;
+				base.Invoke(this.m_InvokeArray);
+			}
+			catch(NullReferenceException e)
+			{
+				Debug.Log(e.Message + " " + e.StackTrace);
+				throw;
+			}
 		}
 
 		public void RegisterPersistentListener(int index, TestityAction<T0> call)
@@ -161,6 +173,8 @@ namespace Testity.Unity3D.Events
 
 		protected TestityEvent()
 		{
+			if (m_InvokeArray == null)
+				m_InvokeArray = new object[2];
 		}
 
 		public void AddListener(TesityAction<T0, T1> call)
@@ -229,6 +243,8 @@ namespace Testity.Unity3D.Events
 
 		protected TesityEvent()
 		{
+			if (m_InvokeArray == null)
+				m_InvokeArray = new object[3];
 		}
 
 		public void AddListener(TestityAction<T0, T1, T2> call)
@@ -298,6 +314,8 @@ namespace Testity.Unity3D.Events
 
 		protected TestityEvent()
 		{
+			if (m_InvokeArray == null)
+				m_InvokeArray = new object[4];
 		}
 
 		public void AddListener(TestityAction<T0, T1, T2, T3> call)
