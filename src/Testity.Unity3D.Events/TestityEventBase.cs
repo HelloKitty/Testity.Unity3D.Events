@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Reflection;
+using Testity.EngineComponents.Unity3D;
 using UnityEngine;
 using UnityEngine.Serialization;
+using System.Linq;
 
 namespace Testity.Unity3D.Events
 {
@@ -188,11 +190,23 @@ namespace Testity.Unity3D.Events
 		/// <param name="argumentTypes">Argument types for the function.</param>
 		public static MethodInfo GetValidMethodInfo(object obj, string functionName, Type[] argumentTypes)
 		{
-			for (Type i = obj.GetType(); i != typeof(object) && i != null; i = i.BaseType)
+			Type typeToParse = obj.GetType();
+
+			//If it's an ITestityBehaviour type it needs to be handled differently
+			if (typeof(ITestityBehaviour).IsAssignableFrom(typeToParse))
+			{
+				//We override typeToParse (imagine we route Unity down a different path) This dramatically changes the path it takes through types
+				//But it'll follow up the hierharchy of the T in TestityBehaviour<T>
+				typeToParse = typeToParse.BaseType.GetGenericArguments().First();//this will grab the EngineScriptComponent child Type used as a generic arg in TestityBehaviour<T>
+			}
+
+			for (Type i = typeToParse; i != typeof(object) && i != null; i = i.BaseType)
 			{
 				MethodInfo method = i.GetMethod(functionName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, argumentTypes, null);
 				if (method != null)
 				{
+
+
 					ParameterInfo[] parameters = method.GetParameters();
 					bool isPrimitive = true;
 					int num = 0;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Testity.EngineComponents.Unity3D;
 
 namespace Testity.Unity3D.Events
 {
@@ -8,6 +9,16 @@ namespace Testity.Unity3D.Events
 		public TestityInvokableCall(object target, MethodInfo theFunction)
 			: base(target, theFunction)
 		{
+			//We need to check if it's a TestityBehaviour first
+			if(typeof(ITestityBehaviour).IsAssignableFrom(target.GetType()))
+			{
+				//if it's a testitybehaviour we need to get a reference to the EngineScriptComponent
+				ITestityBehaviour b = target as ITestityBehaviour;
+
+				//We get an untypes reference so we can build a delegate to it.
+				target = b.GetUntypedScriptComponent;
+			}
+
 			this.Delegate += (TestityAction)theFunction.CreateDelegate(Type.GetTypeFromHandle(typeof(TestityAction).TypeHandle), target);
 		}
 
