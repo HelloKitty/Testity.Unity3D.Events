@@ -295,7 +295,7 @@ namespace Testity.Unity3D.Events.Editor
 			GUIContent content;
 			if (EditorGUI.showMixedValue)
 			{
-				content = EditorGUI.mixedValueContent;
+				content = new GUIContent("Temp");// EditorGUI.mixedValueContent;
 			}
 			else
 			{

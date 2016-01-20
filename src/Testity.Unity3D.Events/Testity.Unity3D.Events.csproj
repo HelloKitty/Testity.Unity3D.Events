@@ -54,10 +54,10 @@
     <Compile Include="PersistentListenerMode.cs" />
     <Compile Include="PresistentCallGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnityAction.cs" />
-    <Compile Include="UnityEvent.cs" />
-    <Compile Include="UnityEventBase.cs" />
-    <Compile Include="UnityEventCallState.cs" />
+    <Compile Include="TestityAction.cs" />
+    <Compile Include="TestityEvent.cs" />
+    <Compile Include="TestityEventBase.cs" />
+    <Compile Include="TestityEventCallState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
