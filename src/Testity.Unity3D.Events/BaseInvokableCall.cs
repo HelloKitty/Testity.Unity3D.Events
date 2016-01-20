@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Testity.EngineComponents.Unity3D;
 using UnityEngine;
 
 namespace Testity.Unity3D.Events
@@ -20,7 +21,14 @@ namespace Testity.Unity3D.Events
 			{
 				throw new ArgumentNullException("function");
 			}
+
+
 		}
+
+		protected bool CheckIsTestityTarget(object target)
+		{
+			return typeof(ITestityBehaviour).IsAssignableFrom(target.GetType());
+        }
 
 		protected static bool AllowInvoke(Delegate @delegate)
 		{
