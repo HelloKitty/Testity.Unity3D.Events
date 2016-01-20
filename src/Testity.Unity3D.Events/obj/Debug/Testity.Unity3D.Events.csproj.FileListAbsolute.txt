@@ -3,3 +3,4 @@ C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Even
 C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Events\bin\Debug\UnityEngine.dll
 C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Events\obj\Debug\Testity.Unity3D.Events.dll
 C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Events\obj\Debug\Testity.Unity3D.Events.pdb
+C:\Users\Glader\Documents\GitHub\Testity.Unity3D.Events\src\Testity.Unity3D.Events\bin\Debug\UnityEditor.dll

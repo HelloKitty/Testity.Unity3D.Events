@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 namespace Testity.Unity3D.Events
 {
 	[Serializable]
-	public class PersistentCall
+	public class TestityPersistentCall
 	{
 		[FormerlySerializedAs("instance")]
 		[SerializeField]
@@ -18,18 +18,18 @@ namespace Testity.Unity3D.Events
 
 		[FormerlySerializedAs("mode")]
 		[SerializeField]
-		private PersistentListenerMode m_Mode;
+		private TestityPersistentListenerMode m_Mode;
 
 		[FormerlySerializedAs("arguments")]
 		[SerializeField]
-		private ArgumentCache m_Arguments = new ArgumentCache();
+		private TestityArgumentCache m_Arguments = new TestityArgumentCache();
 
 		[FormerlySerializedAs("enabled")]
 		[FormerlySerializedAs("m_Enabled")]
 		[SerializeField]
-		private UnityEventCallState m_CallState = UnityEventCallState.RuntimeOnly;
+		private TestityEventCallState m_CallState = TestityEventCallState.RuntimeOnly;
 
-		public ArgumentCache arguments
+		public TestityArgumentCache arguments
 		{
 			get
 			{
@@ -37,7 +37,7 @@ namespace Testity.Unity3D.Events
 			}
 		}
 
-		public UnityEventCallState callState
+		public TestityEventCallState callState
 		{
 			get
 			{
@@ -57,7 +57,7 @@ namespace Testity.Unity3D.Events
 			}
 		}
 
-		public PersistentListenerMode mode
+		public TestityPersistentListenerMode mode
 		{
 			get
 			{
@@ -77,18 +77,18 @@ namespace Testity.Unity3D.Events
 			}
 		}
 
-		public PersistentCall()
+		public TestityPersistentCall()
 		{
 		}
 
-		private static BaseInvokableCall GetObjectCall(UnityEngine.Object target, MethodInfo method, ArgumentCache arguments)
+		private static TestityBaseInvokableCall GetObjectCall(UnityEngine.Object target, MethodInfo method, TestityArgumentCache arguments)
 		{
 			Type type = typeof(UnityEngine.Object);
 			if (!string.IsNullOrEmpty(arguments.unityObjectArgumentAssemblyTypeName))
 			{
 				type = Type.GetType(arguments.unityObjectArgumentAssemblyTypeName, false) ?? typeof(UnityEngine.Object);
 			}
-			Type type1 = typeof(CachedInvokableCall<>).MakeGenericType(new Type[] { type });
+			Type type1 = typeof(TestityCachedInvokableCall<>).MakeGenericType(new Type[] { type });
 			ConstructorInfo constructor = type1.GetConstructor(new Type[] { typeof(UnityEngine.Object), typeof(MethodInfo), type });
 
 			UnityEngine.Object obj = arguments.unityObjectArgument;
@@ -96,16 +96,16 @@ namespace Testity.Unity3D.Events
 			{
 				obj = null;
 			}
-			return constructor.Invoke(new object[] { target, method, obj }) as BaseInvokableCall;
+			return constructor.Invoke(new object[] { target, method, obj }) as TestityBaseInvokableCall;
 		}
 
-		public BaseInvokableCall GetRuntimeCall(UnityEventBase theEvent)
+		public TestityBaseInvokableCall GetRuntimeCall(TestityEventBase theEvent)
 		{
-			if (this.m_CallState == UnityEventCallState.RuntimeOnly && !Application.isPlaying)
+			if (this.m_CallState == TestityEventCallState.RuntimeOnly && !Application.isPlaying)
 			{
 				return null;
 			}
-			if (this.m_CallState == UnityEventCallState.Off || theEvent == null)
+			if (this.m_CallState == TestityEventCallState.Off || theEvent == null)
 			{
 				return null;
 			}
@@ -116,33 +116,33 @@ namespace Testity.Unity3D.Events
 			}
 			switch (this.m_Mode)
 			{
-				case PersistentListenerMode.EventDefined:
+				case TestityPersistentListenerMode.EventDefined:
 					{
 						return theEvent.GetDelegate(this.target, methodInfo);
 					}
-				case PersistentListenerMode.Void:
+				case TestityPersistentListenerMode.Void:
 					{
-						return new InvokableCall(this.target, methodInfo);
+						return new TestityInvokableCall(this.target, methodInfo);
 					}
-				case PersistentListenerMode.Object:
+				case TestityPersistentListenerMode.Object:
 					{
-						return PersistentCall.GetObjectCall(this.target, methodInfo, this.m_Arguments);
+						return TestityPersistentCall.GetObjectCall(this.target, methodInfo, this.m_Arguments);
 					}
-				case PersistentListenerMode.Int:
+				case TestityPersistentListenerMode.Int:
 					{
-						return new CachedInvokableCall<int>(this.target, methodInfo, this.m_Arguments.intArgument);
+						return new TestityCachedInvokableCall<int>(this.target, methodInfo, this.m_Arguments.intArgument);
 					}
-				case PersistentListenerMode.Float:
+				case TestityPersistentListenerMode.Float:
 					{
-						return new CachedInvokableCall<float>(this.target, methodInfo, this.m_Arguments.floatArgument);
+						return new TestityCachedInvokableCall<float>(this.target, methodInfo, this.m_Arguments.floatArgument);
 					}
-				case PersistentListenerMode.String:
+				case TestityPersistentListenerMode.String:
 					{
-						return new CachedInvokableCall<string>(this.target, methodInfo, this.m_Arguments.stringArgument);
+						return new TestityCachedInvokableCall<string>(this.target, methodInfo, this.m_Arguments.stringArgument);
 					}
-				case PersistentListenerMode.Bool:
+				case TestityPersistentListenerMode.Bool:
 					{
-						return new CachedInvokableCall<bool>(this.target, methodInfo, this.m_Arguments.boolArgument);
+						return new TestityCachedInvokableCall<bool>(this.target, methodInfo, this.m_Arguments.boolArgument);
 					}
 			}
 			return null;

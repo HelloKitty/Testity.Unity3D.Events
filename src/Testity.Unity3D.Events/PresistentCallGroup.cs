@@ -6,11 +6,11 @@ using UnityEngine.Serialization;
 namespace Testity.Unity3D.Events
 {
 	[Serializable]
-	public class PersistentCallGroup
+	public class TestityPersistentCallGroup
 	{
 		[FormerlySerializedAs("m_Listeners")]
 		[SerializeField]
-		private List<PersistentCall> m_Calls;
+		private List<TestityPersistentCall> m_Calls;
 
 		public int Count
 		{
@@ -20,17 +20,17 @@ namespace Testity.Unity3D.Events
 			}
 		}
 
-		public PersistentCallGroup()
+		public TestityPersistentCallGroup()
 		{
-			this.m_Calls = new List<PersistentCall>();
+			this.m_Calls = new List<TestityPersistentCall>();
 		}
 
 		public void AddListener()
 		{
-			this.m_Calls.Add(new PersistentCall());
+			this.m_Calls.Add(new TestityPersistentCall());
 		}
 
-		public void AddListener(PersistentCall call)
+		public void AddListener(TestityPersistentCall call)
 		{
 			this.m_Calls.Add(call);
 		}
@@ -40,23 +40,23 @@ namespace Testity.Unity3D.Events
 			this.m_Calls.Clear();
 		}
 
-		public PersistentCall GetListener(int index)
+		public TestityPersistentCall GetListener(int index)
 		{
 			return this.m_Calls[index];
 		}
 
-		public IEnumerable<PersistentCall> GetListeners()
+		public IEnumerable<TestityPersistentCall> GetListeners()
 		{
 			return this.m_Calls;
 		}
 
-		public void Initialize(InvokableCallList invokableList, UnityEventBase unityEventBase)
+		public void Initialize(TestityInvokableCallList invokableList, TestityEventBase unityEventBase)
 		{
-			foreach (PersistentCall mCall in this.m_Calls)
+			foreach (TestityPersistentCall mCall in this.m_Calls)
 			{
 				if (mCall.IsValid())
 				{
-					BaseInvokableCall runtimeCall = mCall.GetRuntimeCall(unityEventBase);
+					TestityBaseInvokableCall runtimeCall = mCall.GetRuntimeCall(unityEventBase);
 					if (runtimeCall == null)
 					{
 						continue;
@@ -68,56 +68,56 @@ namespace Testity.Unity3D.Events
 
 		public void RegisterBoolPersistentListener(int index, UnityEngine.Object targetObj, bool argument, string methodName)
 		{
-			PersistentCall listener = this.GetListener(index);
+			TestityPersistentCall listener = this.GetListener(index);
 			listener.RegisterPersistentListener(targetObj, methodName);
-			listener.mode = PersistentListenerMode.Bool;
+			listener.mode = TestityPersistentListenerMode.Bool;
 			listener.arguments.boolArgument = argument;
 		}
 
 		public void RegisterEventPersistentListener(int index, UnityEngine.Object targetObj, string methodName)
 		{
-			PersistentCall listener = this.GetListener(index);
+			TestityPersistentCall listener = this.GetListener(index);
 			listener.RegisterPersistentListener(targetObj, methodName);
-			listener.mode = PersistentListenerMode.EventDefined;
+			listener.mode = TestityPersistentListenerMode.EventDefined;
 		}
 
 		public void RegisterFloatPersistentListener(int index, UnityEngine.Object targetObj, float argument, string methodName)
 		{
-			PersistentCall listener = this.GetListener(index);
+			TestityPersistentCall listener = this.GetListener(index);
 			listener.RegisterPersistentListener(targetObj, methodName);
-			listener.mode = PersistentListenerMode.Float;
+			listener.mode = TestityPersistentListenerMode.Float;
 			listener.arguments.floatArgument = argument;
 		}
 
 		public void RegisterIntPersistentListener(int index, UnityEngine.Object targetObj, int argument, string methodName)
 		{
-			PersistentCall listener = this.GetListener(index);
+			TestityPersistentCall listener = this.GetListener(index);
 			listener.RegisterPersistentListener(targetObj, methodName);
-			listener.mode = PersistentListenerMode.Int;
+			listener.mode = TestityPersistentListenerMode.Int;
 			listener.arguments.intArgument = argument;
 		}
 
 		public void RegisterObjectPersistentListener(int index, UnityEngine.Object targetObj, UnityEngine.Object argument, string methodName)
 		{
-			PersistentCall listener = this.GetListener(index);
+			TestityPersistentCall listener = this.GetListener(index);
 			listener.RegisterPersistentListener(targetObj, methodName);
-			listener.mode = PersistentListenerMode.Object;
+			listener.mode = TestityPersistentListenerMode.Object;
 			listener.arguments.unityObjectArgument = argument;
 		}
 
 		public void RegisterStringPersistentListener(int index, UnityEngine.Object targetObj, string argument, string methodName)
 		{
-			PersistentCall listener = this.GetListener(index);
+			TestityPersistentCall listener = this.GetListener(index);
 			listener.RegisterPersistentListener(targetObj, methodName);
-			listener.mode = PersistentListenerMode.String;
+			listener.mode = TestityPersistentListenerMode.String;
 			listener.arguments.stringArgument = argument;
 		}
 
 		public void RegisterVoidPersistentListener(int index, UnityEngine.Object targetObj, string methodName)
 		{
-			PersistentCall listener = this.GetListener(index);
+			TestityPersistentCall listener = this.GetListener(index);
 			listener.RegisterPersistentListener(targetObj, methodName);
-			listener.mode = PersistentListenerMode.Void;
+			listener.mode = TestityPersistentListenerMode.Void;
 		}
 
 		public void RemoveListener(int index)
@@ -127,7 +127,7 @@ namespace Testity.Unity3D.Events
 
 		public void RemoveListeners(UnityEngine.Object target, string methodName)
 		{
-			List<PersistentCall> persistentCalls = new List<PersistentCall>();
+			List<TestityPersistentCall> persistentCalls = new List<TestityPersistentCall>();
 			for (int i = 0; i < this.m_Calls.Count; i++)
 			{
 				if (this.m_Calls[i].target == target && this.m_Calls[i].methodName == methodName)
@@ -135,8 +135,8 @@ namespace Testity.Unity3D.Events
 					persistentCalls.Add(this.m_Calls[i]);
 				}
 			}
-			List<PersistentCall> persistentCalls1 = persistentCalls;
-			this.m_Calls.RemoveAll(new Predicate<PersistentCall>(persistentCalls1.Contains));
+			List<TestityPersistentCall> persistentCalls1 = persistentCalls;
+			this.m_Calls.RemoveAll(new Predicate<TestityPersistentCall>(persistentCalls1.Contains));
 		}
 
 		public void UnregisterPersistentListener(int index)

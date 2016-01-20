@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 namespace Testity.Unity3D.Events
 {
 	[Serializable]
-	public class ArgumentCache : ISerializationCallbackReceiver
+	public class TestityArgumentCache : ISerializationCallbackReceiver
 	{
 		private const string kVersionString = ", Version=\\d+.\\d+.\\d+.\\d+";
 
@@ -106,7 +106,7 @@ namespace Testity.Unity3D.Events
 			}
 		}
 
-		public ArgumentCache()
+		public TestityArgumentCache()
 		{
 		}
 

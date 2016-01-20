@@ -8,14 +8,14 @@ namespace Testity.Unity3D.Events
 	///   <para>A zero argument persistent callback that can be saved with the scene.</para>
 	/// </summary>
 	[Serializable]
-	public class UnityEvent : UnityEventBase
+	public class TestityEvent : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray = new object[0];
 
 		/// <summary>
 		///   <para>Constructor.</para>
 		/// </summary>
-		public UnityEvent()
+		public TestityEvent()
 		{
 		}
 
@@ -23,17 +23,17 @@ namespace Testity.Unity3D.Events
 		///   <para>Add a non persistent listener to the UnityEvent.</para>
 		/// </summary>
 		/// <param name="call">Callback function.</param>
-		public void AddListener(UnityAction call)
+		public void AddListener(TestityAction call)
 		{
-			base.AddCall(UnityEvent.GetDelegate(call));
+			base.AddCall(TestityEvent.GetDelegate(call));
 		}
 
-		public void AddPersistentListener(UnityAction call)
+		public void AddPersistentListener(TestityAction call)
 		{
-			this.AddPersistentListener(call, UnityEventCallState.RuntimeOnly);
+			this.AddPersistentListener(call, TestityEventCallState.RuntimeOnly);
 		}
 
-		public void AddPersistentListener(UnityAction call, UnityEventCallState callState)
+		public void AddPersistentListener(TestityAction call, TestityEventCallState callState)
 		{
 			int persistentEventCount = base.GetPersistentEventCount();
 			base.AddPersistentListener();
@@ -43,17 +43,17 @@ namespace Testity.Unity3D.Events
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
 		{
-			return UnityEventBase.GetValidMethodInfo(targetObj, name, new Type[0]);
+			return TestityEventBase.GetValidMethodInfo(targetObj, name, new Type[0]);
 		}
 
-		public override BaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
+		public override TestityBaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
 		{
-			return new InvokableCall(target, theFunction);
+			return new TestityInvokableCall(target, theFunction);
 		}
 
-		private static BaseInvokableCall GetDelegate(UnityAction action)
+		private static TestityBaseInvokableCall GetDelegate(TestityAction action)
 		{
-			return new InvokableCall(action);
+			return new TestityInvokableCall(action);
 		}
 
 		/// <summary>
@@ -64,7 +64,7 @@ namespace Testity.Unity3D.Events
 			base.Invoke(this.m_InvokeArray);
 		}
 
-		public void RegisterPersistentListener(int index, UnityAction call)
+		public void RegisterPersistentListener(int index, TestityAction call)
 		{
 			if (call == null)
 			{
@@ -78,7 +78,7 @@ namespace Testity.Unity3D.Events
 		///   <para>Remove a non persistent listener from the UnityEvent.</para>
 		/// </summary>
 		/// <param name="call">Callback function.</param>
-		public void RemoveListener(UnityAction call)
+		public void RemoveListener(TestityAction call)
 		{
 			base.RemoveListener(call.Target, call.GetMethodInfo());
 		}
@@ -88,7 +88,7 @@ namespace Testity.Unity3D.Events
 	///   <para>One argument version of UnityEvent.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class UnityEvent<T0> : UnityEventBase
+	public abstract class UnityEvent<T0> : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray;
 
@@ -96,17 +96,17 @@ namespace Testity.Unity3D.Events
 		{
 		}
 
-		public void AddListener(UnityAction<T0> call)
+		public void AddListener(TestityAction<T0> call)
 		{
 			base.AddCall(UnityEvent<T0>.GetDelegate(call));
 		}
 
-		public void AddPersistentListener(UnityAction<T0> call)
+		public void AddPersistentListener(TestityAction<T0> call)
 		{
-			this.AddPersistentListener(call, UnityEventCallState.RuntimeOnly);
+			this.AddPersistentListener(call, TestityEventCallState.RuntimeOnly);
 		}
 
-		public void AddPersistentListener(UnityAction<T0> call, UnityEventCallState callState)
+		public void AddPersistentListener(TestityAction<T0> call, TestityEventCallState callState)
 		{
 			int persistentEventCount = base.GetPersistentEventCount();
 			base.AddPersistentListener();
@@ -116,15 +116,15 @@ namespace Testity.Unity3D.Events
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
 		{
-			return UnityEventBase.GetValidMethodInfo(targetObj, name, new Type[] { typeof(T0) });
+			return TestityEventBase.GetValidMethodInfo(targetObj, name, new Type[] { typeof(T0) });
 		}
 
-		public override BaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
+		public override TestityBaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
 		{
 			return new InvokableCall<T0>(target, theFunction);
 		}
 
-		private static BaseInvokableCall GetDelegate(UnityAction<T0> action)
+		private static TestityBaseInvokableCall GetDelegate(TestityAction<T0> action)
 		{
 			return new InvokableCall<T0>(action);
 		}
@@ -135,7 +135,7 @@ namespace Testity.Unity3D.Events
 			base.Invoke(this.m_InvokeArray);
 		}
 
-		public void RegisterPersistentListener(int index, UnityAction<T0> call)
+		public void RegisterPersistentListener(int index, TestityAction<T0> call)
 		{
 			if (call == null)
 			{
@@ -145,7 +145,7 @@ namespace Testity.Unity3D.Events
 			base.RegisterPersistentListener(index, call.Target as UnityEngine.Object, call.Method);
 		}
 
-		public void RemoveListener(UnityAction<T0> call)
+		public void RemoveListener(TestityAction<T0> call)
 		{
 			base.RemoveListener(call.Target, call.GetMethodInfo());
 		}
@@ -155,7 +155,7 @@ namespace Testity.Unity3D.Events
 	///   <para>Two argument version of UnityEvent.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class UnityEvent<T0, T1> : UnityEventBase
+	public abstract class UnityEvent<T0, T1> : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray;
 
@@ -163,17 +163,17 @@ namespace Testity.Unity3D.Events
 		{
 		}
 
-		public void AddListener(UnityAction<T0, T1> call)
+		public void AddListener(TesityAction<T0, T1> call)
 		{
 			base.AddCall(UnityEvent<T0, T1>.GetDelegate(call));
 		}
 
-		public void AddPersistentListener(UnityAction<T0, T1> call)
+		public void AddPersistentListener(TesityAction<T0, T1> call)
 		{
-			this.AddPersistentListener(call, UnityEventCallState.RuntimeOnly);
+			this.AddPersistentListener(call, TestityEventCallState.RuntimeOnly);
 		}
 
-		public void AddPersistentListener(UnityAction<T0, T1> call, UnityEventCallState callState)
+		public void AddPersistentListener(TesityAction<T0, T1> call, TestityEventCallState callState)
 		{
 			int persistentEventCount = base.GetPersistentEventCount();
 			base.AddPersistentListener();
@@ -183,15 +183,15 @@ namespace Testity.Unity3D.Events
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
 		{
-			return UnityEventBase.GetValidMethodInfo(targetObj, name, new Type[] { typeof(T0), typeof(T1) });
+			return TestityEventBase.GetValidMethodInfo(targetObj, name, new Type[] { typeof(T0), typeof(T1) });
 		}
 
-		public override BaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
+		public override TestityBaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
 		{
 			return new InvokableCall<T0, T1>(target, theFunction);
 		}
 
-		private static BaseInvokableCall GetDelegate(UnityAction<T0, T1> action)
+		private static TestityBaseInvokableCall GetDelegate(TesityAction<T0, T1> action)
 		{
 			return new InvokableCall<T0, T1>(action);
 		}
@@ -203,7 +203,7 @@ namespace Testity.Unity3D.Events
 			base.Invoke(this.m_InvokeArray);
 		}
 
-		public void RegisterPersistentListener(int index, UnityAction<T0, T1> call)
+		public void RegisterPersistentListener(int index, TesityAction<T0, T1> call)
 		{
 			if (call == null)
 			{
@@ -213,7 +213,7 @@ namespace Testity.Unity3D.Events
 			base.RegisterPersistentListener(index, call.Target as UnityEngine.Object, call.Method);
 		}
 
-		public void RemoveListener(UnityAction<T0, T1> call)
+		public void RemoveListener(TesityAction<T0, T1> call)
 		{
 			base.RemoveListener(call.Target, call.GetMethodInfo());
 		}
@@ -223,7 +223,7 @@ namespace Testity.Unity3D.Events
 	///   <para>Three argument version of UnityEvent.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class UnityEvent<T0, T1, T2> : UnityEventBase
+	public abstract class UnityEvent<T0, T1, T2> : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray;
 
@@ -231,17 +231,17 @@ namespace Testity.Unity3D.Events
 		{
 		}
 
-		public void AddListener(UnityAction<T0, T1, T2> call)
+		public void AddListener(TestityAction<T0, T1, T2> call)
 		{
 			base.AddCall(UnityEvent<T0, T1, T2>.GetDelegate(call));
 		}
 
-		public void AddPersistentListener(UnityAction<T0, T1, T2> call)
+		public void AddPersistentListener(TestityAction<T0, T1, T2> call)
 		{
-			this.AddPersistentListener(call, UnityEventCallState.RuntimeOnly);
+			this.AddPersistentListener(call, TestityEventCallState.RuntimeOnly);
 		}
 
-		public void AddPersistentListener(UnityAction<T0, T1, T2> call, UnityEventCallState callState)
+		public void AddPersistentListener(TestityAction<T0, T1, T2> call, TestityEventCallState callState)
 		{
 			int persistentEventCount = base.GetPersistentEventCount();
 			base.AddPersistentListener();
@@ -251,15 +251,15 @@ namespace Testity.Unity3D.Events
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
 		{
-			return UnityEventBase.GetValidMethodInfo(targetObj, name, new Type[] { typeof(T0), typeof(T1), typeof(T2) });
+			return TestityEventBase.GetValidMethodInfo(targetObj, name, new Type[] { typeof(T0), typeof(T1), typeof(T2) });
 		}
 
-		public override BaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
+		public override TestityBaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
 		{
 			return new InvokableCall<T0, T1, T2>(target, theFunction);
 		}
 
-		private static BaseInvokableCall GetDelegate(UnityAction<T0, T1, T2> action)
+		private static TestityBaseInvokableCall GetDelegate(TestityAction<T0, T1, T2> action)
 		{
 			return new InvokableCall<T0, T1, T2>(action);
 		}
@@ -272,7 +272,7 @@ namespace Testity.Unity3D.Events
 			base.Invoke(this.m_InvokeArray);
 		}
 
-		public void RegisterPersistentListener(int index, UnityAction<T0, T1, T2> call)
+		public void RegisterPersistentListener(int index, TestityAction<T0, T1, T2> call)
 		{
 			if (call == null)
 			{
@@ -282,7 +282,7 @@ namespace Testity.Unity3D.Events
 			base.RegisterPersistentListener(index, call.Target as UnityEngine.Object, call.Method);
 		}
 
-		public void RemoveListener(UnityAction<T0, T1, T2> call)
+		public void RemoveListener(TestityAction<T0, T1, T2> call)
 		{
 			base.RemoveListener(call.Target, call.GetMethodInfo());
 		}
@@ -292,7 +292,7 @@ namespace Testity.Unity3D.Events
 	///   <para>Four argument version of UnityEvent.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class UnityEvent<T0, T1, T2, T3> : UnityEventBase
+	public abstract class UnityEvent<T0, T1, T2, T3> : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray;
 
@@ -300,17 +300,17 @@ namespace Testity.Unity3D.Events
 		{
 		}
 
-		public void AddListener(UnityAction<T0, T1, T2, T3> call)
+		public void AddListener(TestityAction<T0, T1, T2, T3> call)
 		{
 			base.AddCall(UnityEvent<T0, T1, T2, T3>.GetDelegate(call));
 		}
 
-		public void AddPersistentListener(UnityAction<T0, T1, T2, T3> call)
+		public void AddPersistentListener(TestityAction<T0, T1, T2, T3> call)
 		{
-			this.AddPersistentListener(call, UnityEventCallState.RuntimeOnly);
+			this.AddPersistentListener(call, TestityEventCallState.RuntimeOnly);
 		}
 
-		public void AddPersistentListener(UnityAction<T0, T1, T2, T3> call, UnityEventCallState callState)
+		public void AddPersistentListener(TestityAction<T0, T1, T2, T3> call, TestityEventCallState callState)
 		{
 			int persistentEventCount = base.GetPersistentEventCount();
 			base.AddPersistentListener();
@@ -320,15 +320,15 @@ namespace Testity.Unity3D.Events
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
 		{
-			return UnityEventBase.GetValidMethodInfo(targetObj, name, new Type[] { typeof(T0), typeof(T1), typeof(T2), typeof(T3) });
+			return TestityEventBase.GetValidMethodInfo(targetObj, name, new Type[] { typeof(T0), typeof(T1), typeof(T2), typeof(T3) });
 		}
 
-		public override BaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
+		public override TestityBaseInvokableCall GetDelegate(object target, MethodInfo theFunction)
 		{
 			return new InvokableCall<T0, T1, T2, T3>(target, theFunction);
 		}
 
-		private static BaseInvokableCall GetDelegate(UnityAction<T0, T1, T2, T3> action)
+		private static TestityBaseInvokableCall GetDelegate(TestityAction<T0, T1, T2, T3> action)
 		{
 			return new InvokableCall<T0, T1, T2, T3>(action);
 		}
@@ -342,7 +342,7 @@ namespace Testity.Unity3D.Events
 			base.Invoke(this.m_InvokeArray);
 		}
 
-		public void RegisterPersistentListener(int index, UnityAction<T0, T1, T2, T3> call)
+		public void RegisterPersistentListener(int index, TestityAction<T0, T1, T2, T3> call)
 		{
 			if (call == null)
 			{
@@ -352,7 +352,7 @@ namespace Testity.Unity3D.Events
 			base.RegisterPersistentListener(index, call.Target as UnityEngine.Object, call.Method);
 		}
 
-		public void RemoveListener(UnityAction<T0, T1, T2, T3> call)
+		public void RemoveListener(TestityAction<T0, T1, T2, T3> call)
 		{
 			base.RemoveListener(call.Target, call.GetMethodInfo());
 		}

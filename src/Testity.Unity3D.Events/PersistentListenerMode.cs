@@ -6,7 +6,7 @@ namespace Testity.Unity3D.Events
 	///   <para>THe mode that a listener is operating in.</para>
 	/// </summary>
 	[Serializable]
-	public enum PersistentListenerMode
+	public enum TestityPersistentListenerMode
 	{
 		/// <summary>
 		///   <para>The listener will use the function binding specified by the even.</para>

@@ -5,7 +5,7 @@ namespace Testity.Unity3D.Events
 	/// <summary>
 	///   <para>Controls the scope of UnityEvent callbacks.</para>
 	/// </summary>
-	public enum UnityEventCallState
+	public enum TestityEventCallState
 	{
 		/// <summary>
 		///   <para>Callback is not issued.</para>

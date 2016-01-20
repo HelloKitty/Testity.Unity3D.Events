@@ -4,13 +4,13 @@ using System.Reflection;
 
 namespace Testity.Unity3D.Events
 {
-	public class InvokableCallList
+	public class TestityInvokableCallList
 	{
-		private readonly List<BaseInvokableCall> m_PersistentCalls = new List<BaseInvokableCall>();
+		private readonly List<TestityBaseInvokableCall> m_PersistentCalls = new List<TestityBaseInvokableCall>();
 
-		private readonly List<BaseInvokableCall> m_RuntimeCalls = new List<BaseInvokableCall>();
+		private readonly List<TestityBaseInvokableCall> m_RuntimeCalls = new List<TestityBaseInvokableCall>();
 
-		private readonly List<BaseInvokableCall> m_ExecutingCalls = new List<BaseInvokableCall>();
+		private readonly List<TestityBaseInvokableCall> m_ExecutingCalls = new List<TestityBaseInvokableCall>();
 
 		private bool m_NeedsUpdate = true;
 
@@ -22,17 +22,17 @@ namespace Testity.Unity3D.Events
 			}
 		}
 
-		public InvokableCallList()
+		public TestityInvokableCallList()
 		{
 		}
 
-		public void AddListener(BaseInvokableCall call)
+		public void AddListener(TestityBaseInvokableCall call)
 		{
 			this.m_RuntimeCalls.Add(call);
 			this.m_NeedsUpdate = true;
 		}
 
-		public void AddPersistentInvokableCall(BaseInvokableCall call)
+		public void AddPersistentInvokableCall(TestityBaseInvokableCall call)
 		{
 			this.m_PersistentCalls.Add(call);
 			this.m_NeedsUpdate = true;
@@ -67,7 +67,7 @@ namespace Testity.Unity3D.Events
 
 		public void RemoveListener(object targetObj, MethodInfo method)
 		{
-			List<BaseInvokableCall> baseInvokableCalls = new List<BaseInvokableCall>();
+			List<TestityBaseInvokableCall> baseInvokableCalls = new List<TestityBaseInvokableCall>();
 			for (int i = 0; i < this.m_RuntimeCalls.Count; i++)
 			{
 				if (this.m_RuntimeCalls[i].Find(targetObj, method))
@@ -75,8 +75,8 @@ namespace Testity.Unity3D.Events
 					baseInvokableCalls.Add(this.m_RuntimeCalls[i]);
 				}
 			}
-			List<BaseInvokableCall> baseInvokableCalls1 = baseInvokableCalls;
-			this.m_RuntimeCalls.RemoveAll(new Predicate<BaseInvokableCall>(baseInvokableCalls1.Contains));
+			List<TestityBaseInvokableCall> baseInvokableCalls1 = baseInvokableCalls;
+			this.m_RuntimeCalls.RemoveAll(new Predicate<TestityBaseInvokableCall>(baseInvokableCalls1.Contains));
 			this.m_NeedsUpdate = true;
 		}
 	}

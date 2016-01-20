@@ -3,15 +3,15 @@ using System.Reflection;
 
 namespace Testity.Unity3D.Events
 {
-	public class InvokableCall : BaseInvokableCall
+	public class TestityInvokableCall : TestityBaseInvokableCall
 	{
-		public InvokableCall(object target, MethodInfo theFunction)
+		public TestityInvokableCall(object target, MethodInfo theFunction)
 			: base(target, theFunction)
 		{
-			this.Delegate += (UnityAction)theFunction.CreateDelegate(Type.GetTypeFromHandle(typeof(UnityAction).TypeHandle), target);
+			this.Delegate += (TestityAction)theFunction.CreateDelegate(Type.GetTypeFromHandle(typeof(TestityAction).TypeHandle), target);
 		}
 
-		public InvokableCall(UnityAction action)
+		public TestityInvokableCall(TestityAction action)
 		{
 			this.Delegate += action;
 		}
@@ -23,23 +23,23 @@ namespace Testity.Unity3D.Events
 
 		public override void Invoke(object[] args)
 		{
-			if (BaseInvokableCall.AllowInvoke(this.Delegate))
+			if (TestityBaseInvokableCall.AllowInvoke(this.Delegate))
 			{
 				this.Delegate();
 			}
 		}
 
-		private event UnityAction Delegate;
+		private event TestityAction Delegate;
 	}
 
-    public class InvokableCall<T1> : BaseInvokableCall
+    public class InvokableCall<T1> : TestityBaseInvokableCall
     {
         public InvokableCall(object target, MethodInfo theFunction) : base(target, theFunction)
         {
-            this.Delegate += (UnityAction<T1>)theFunction.CreateDelegate(Type.GetTypeFromHandle(typeof(UnityAction<T1>).TypeHandle), target);
+            this.Delegate += (TestityAction<T1>)theFunction.CreateDelegate(Type.GetTypeFromHandle(typeof(TestityAction<T1>).TypeHandle), target);
         }
 
-        public InvokableCall(UnityAction<T1> action)
+        public InvokableCall(TestityAction<T1> action)
         {
             this.Delegate += action;
         }
@@ -55,24 +55,24 @@ namespace Testity.Unity3D.Events
             {
                 throw new ArgumentException("Passed argument 'args' is invalid size. Expected size is 1");
             }
-            BaseInvokableCall.ThrowOnInvalidArg<T1>(args[0]);
-            if (BaseInvokableCall.AllowInvoke(this.Delegate))
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T1>(args[0]);
+            if (TestityBaseInvokableCall.AllowInvoke(this.Delegate))
             {
                 this.Delegate((T1)args[0]);
             }
         }
 
-		protected event UnityAction<T1> Delegate;
+		protected event TestityAction<T1> Delegate;
     }
 
-    public class InvokableCall<T1, T2> : BaseInvokableCall
+    public class InvokableCall<T1, T2> : TestityBaseInvokableCall
     {
         public InvokableCall(object target, MethodInfo theFunction) : base(target, theFunction)
         {
-            this.Delegate = (UnityAction<T1, T2>)theFunction.CreateDelegate(typeof(UnityAction<T1, T2>), target);
+            this.Delegate = (TesityAction<T1, T2>)theFunction.CreateDelegate(typeof(TesityAction<T1, T2>), target);
         }
 
-        public InvokableCall(UnityAction<T1, T2> action)
+        public InvokableCall(TesityAction<T1, T2> action)
         {
             this.Delegate += action;
         }
@@ -88,25 +88,25 @@ namespace Testity.Unity3D.Events
             {
                 throw new ArgumentException("Passed argument 'args' is invalid size. Expected size is 1");
             }
-            BaseInvokableCall.ThrowOnInvalidArg<T1>(args[0]);
-            BaseInvokableCall.ThrowOnInvalidArg<T2>(args[1]);
-            if (BaseInvokableCall.AllowInvoke(this.Delegate))
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T1>(args[0]);
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T2>(args[1]);
+            if (TestityBaseInvokableCall.AllowInvoke(this.Delegate))
             {
                 this.Delegate((T1)args[0], (T2)args[1]);
             }
         }
 
-		protected event UnityAction<T1, T2> Delegate;
+		protected event TesityAction<T1, T2> Delegate;
     }
 
-    public class InvokableCall<T1, T2, T3> : BaseInvokableCall
+    public class InvokableCall<T1, T2, T3> : TestityBaseInvokableCall
     {
         public InvokableCall(object target, MethodInfo theFunction) : base(target, theFunction)
         {
-            this.Delegate = (UnityAction<T1, T2, T3>)theFunction.CreateDelegate(typeof(UnityAction<T1, T2, T3>), target);
+            this.Delegate = (TestityAction<T1, T2, T3>)theFunction.CreateDelegate(typeof(TestityAction<T1, T2, T3>), target);
         }
 
-        public InvokableCall(UnityAction<T1, T2, T3> action)
+        public InvokableCall(TestityAction<T1, T2, T3> action)
         {
             this.Delegate += action;
         }
@@ -122,27 +122,27 @@ namespace Testity.Unity3D.Events
             {
                 throw new ArgumentException("Passed argument 'args' is invalid size. Expected size is 1");
             }
-            BaseInvokableCall.ThrowOnInvalidArg<T1>(args[0]);
-            BaseInvokableCall.ThrowOnInvalidArg<T2>(args[1]);
-            BaseInvokableCall.ThrowOnInvalidArg<T3>(args[2]);
-            if (BaseInvokableCall.AllowInvoke(this.Delegate))
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T1>(args[0]);
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T2>(args[1]);
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T3>(args[2]);
+            if (TestityBaseInvokableCall.AllowInvoke(this.Delegate))
             {
                 this.Delegate((T1)args[0], (T2)args[1], (T3)args[2]);
             }
         }
 
-		protected event UnityAction<T1, T2, T3> Delegate;
+		protected event TestityAction<T1, T2, T3> Delegate;
     }
 
-    public class InvokableCall<T1, T2, T3, T4> : BaseInvokableCall
+    public class InvokableCall<T1, T2, T3, T4> : TestityBaseInvokableCall
     {
 
         public InvokableCall(object target, MethodInfo theFunction) : base(target, theFunction)
         {
-            this.Delegate = (UnityAction<T1, T2, T3, T4>)theFunction.CreateDelegate(typeof(UnityAction<T1, T2, T3, T4>), target);
+            this.Delegate = (TestityAction<T1, T2, T3, T4>)theFunction.CreateDelegate(typeof(TestityAction<T1, T2, T3, T4>), target);
         }
 
-        public InvokableCall(UnityAction<T1, T2, T3, T4> action)
+        public InvokableCall(TestityAction<T1, T2, T3, T4> action)
         {
             this.Delegate += action;
         }
@@ -158,16 +158,16 @@ namespace Testity.Unity3D.Events
             {
                 throw new ArgumentException("Passed argument 'args' is invalid size. Expected size is 1");
             }
-            BaseInvokableCall.ThrowOnInvalidArg<T1>(args[0]);
-            BaseInvokableCall.ThrowOnInvalidArg<T2>(args[1]);
-            BaseInvokableCall.ThrowOnInvalidArg<T3>(args[2]);
-            BaseInvokableCall.ThrowOnInvalidArg<T4>(args[3]);
-            if (BaseInvokableCall.AllowInvoke(this.Delegate))
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T1>(args[0]);
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T2>(args[1]);
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T3>(args[2]);
+            TestityBaseInvokableCall.ThrowOnInvalidArg<T4>(args[3]);
+            if (TestityBaseInvokableCall.AllowInvoke(this.Delegate))
             {
                 this.Delegate((T1)args[0], (T2)args[1], (T3)args[2], (T4)args[3]);
             }
         }
 
-		protected event UnityAction<T1, T2, T3, T4> Delegate;
+		protected event TestityAction<T1, T2, T3, T4> Delegate;
     }
 }

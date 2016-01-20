@@ -9,46 +9,46 @@ namespace Testity.Unity3D.Events
 	///   <para>Abstract base class for UnityEvents.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class UnityEventBase : ISerializationCallbackReceiver
+	public abstract class TestityEventBase : ISerializationCallbackReceiver
 	{
-		private InvokableCallList m_Calls;
+		private TestityInvokableCallList m_Calls;
 
 		[FormerlySerializedAs("m_PersistentListeners")]
 		[SerializeField]
-		private PersistentCallGroup m_PersistentCalls;
+		private TestityPersistentCallGroup m_PersistentCalls;
 
 		[SerializeField]
 		private string m_TypeName;
 
 		private bool m_CallsDirty = true;
 
-		protected UnityEventBase()
+		protected TestityEventBase()
 		{
-			this.m_Calls = new InvokableCallList();
-			this.m_PersistentCalls = new PersistentCallGroup();
+			this.m_Calls = new TestityInvokableCallList();
+			this.m_PersistentCalls = new TestityPersistentCallGroup();
 			this.m_TypeName = this.GetType().AssemblyQualifiedName;
 		}
 
-		public void AddBoolPersistentListener(UnityAction<bool> call, bool argument)
+		public void AddBoolPersistentListener(TestityAction<bool> call, bool argument)
 		{
 			int persistentEventCount = this.GetPersistentEventCount();
 			this.AddPersistentListener();
 			this.RegisterBoolPersistentListener(persistentEventCount, call, argument);
 		}
 
-		public void AddCall(BaseInvokableCall call)
+		public void AddCall(TestityBaseInvokableCall call)
 		{
 			this.m_Calls.AddListener(call);
 		}
 
-		public void AddFloatPersistentListener(UnityAction<float> call, float argument)
+		public void AddFloatPersistentListener(TestityAction<float> call, float argument)
 		{
 			int persistentEventCount = this.GetPersistentEventCount();
 			this.AddPersistentListener();
 			this.RegisterFloatPersistentListener(persistentEventCount, call, argument);
 		}
 
-		public void AddIntPersistentListener(UnityAction<int> call, int argument)
+		public void AddIntPersistentListener(TestityAction<int> call, int argument)
 		{
 			int persistentEventCount = this.GetPersistentEventCount();
 			this.AddPersistentListener();
@@ -60,7 +60,7 @@ namespace Testity.Unity3D.Events
 			this.m_Calls.AddListener(this.GetDelegate(targetObj, method));
 		}
 
-		public void AddObjectPersistentListener<T>(UnityAction<T> call, T argument)
+		public void AddObjectPersistentListener<T>(TestityAction<T> call, T argument)
 		where T : UnityEngine.Object
 		{
 			int persistentEventCount = this.GetPersistentEventCount();
@@ -73,14 +73,14 @@ namespace Testity.Unity3D.Events
 			this.m_PersistentCalls.AddListener();
 		}
 
-		public void AddStringPersistentListener(UnityAction<string> call, string argument)
+		public void AddStringPersistentListener(TestityAction<string> call, string argument)
 		{
 			int persistentEventCount = this.GetPersistentEventCount();
 			this.AddPersistentListener();
 			this.RegisterStringPersistentListener(persistentEventCount, call, argument);
 		}
 
-		public void AddVoidPersistentListener(UnityAction call)
+		public void AddVoidPersistentListener(TestityAction call)
 		{
 			int persistentEventCount = this.GetPersistentEventCount();
 			this.AddPersistentListener();
@@ -93,7 +93,7 @@ namespace Testity.Unity3D.Events
 			this.m_CallsDirty = true;
 		}
 
-		public MethodInfo FindMethod(PersistentCall call)
+		public MethodInfo FindMethod(TestityPersistentCall call)
 		{
 			Type type = typeof(UnityEngine.Object);
 			if (!string.IsNullOrEmpty(call.arguments.unityObjectArgumentAssemblyTypeName))
@@ -103,37 +103,37 @@ namespace Testity.Unity3D.Events
 			return this.FindMethod(call.methodName, call.target, call.mode, type);
 		}
 
-		public MethodInfo FindMethod(string name, object listener, PersistentListenerMode mode, Type argumentType)
+		public MethodInfo FindMethod(string name, object listener, TestityPersistentListenerMode mode, Type argumentType)
 		{
 			switch (mode)
 			{
-				case PersistentListenerMode.EventDefined:
+				case TestityPersistentListenerMode.EventDefined:
 					{
 						return this.FindMethod_Impl(name, listener);
 					}
-				case PersistentListenerMode.Void:
+				case TestityPersistentListenerMode.Void:
 					{
-						return UnityEventBase.GetValidMethodInfo(listener, name, new Type[0]);
+						return TestityEventBase.GetValidMethodInfo(listener, name, new Type[0]);
 					}
-				case PersistentListenerMode.Object:
+				case TestityPersistentListenerMode.Object:
 					{
-						return UnityEventBase.GetValidMethodInfo(listener, name, new Type[] { argumentType ?? typeof(UnityEngine.Object) });
+						return TestityEventBase.GetValidMethodInfo(listener, name, new Type[] { argumentType ?? typeof(UnityEngine.Object) });
 					}
-				case PersistentListenerMode.Int:
+				case TestityPersistentListenerMode.Int:
 					{
-						return UnityEventBase.GetValidMethodInfo(listener, name, new Type[] { typeof(int) });
+						return TestityEventBase.GetValidMethodInfo(listener, name, new Type[] { typeof(int) });
 					}
-				case PersistentListenerMode.Float:
+				case TestityPersistentListenerMode.Float:
 					{
-						return UnityEventBase.GetValidMethodInfo(listener, name, new Type[] { typeof(float) });
+						return TestityEventBase.GetValidMethodInfo(listener, name, new Type[] { typeof(float) });
 					}
-				case PersistentListenerMode.String:
+				case TestityPersistentListenerMode.String:
 					{
-						return UnityEventBase.GetValidMethodInfo(listener, name, new Type[] { typeof(string) });
+						return TestityEventBase.GetValidMethodInfo(listener, name, new Type[] { typeof(string) });
 					}
-				case PersistentListenerMode.Bool:
+				case TestityPersistentListenerMode.Bool:
 					{
-						return UnityEventBase.GetValidMethodInfo(listener, name, new Type[] { typeof(bool) });
+						return TestityEventBase.GetValidMethodInfo(listener, name, new Type[] { typeof(bool) });
 					}
 			}
 			return null;
@@ -141,7 +141,7 @@ namespace Testity.Unity3D.Events
 
 		protected abstract MethodInfo FindMethod_Impl(string name, object targetObj);
 
-		public abstract BaseInvokableCall GetDelegate(object target, MethodInfo theFunction);
+		public abstract TestityBaseInvokableCall GetDelegate(object target, MethodInfo theFunction);
 
 		/// <summary>
 		///   <para>Get the number of registered persistent listeners.</para>
@@ -157,7 +157,7 @@ namespace Testity.Unity3D.Events
 		/// <param name="index">Index of the listener to query.</param>
 		public string GetPersistentMethodName(int index)
 		{
-			PersistentCall listener = this.m_PersistentCalls.GetListener(index);
+			TestityPersistentCall listener = this.m_PersistentCalls.GetListener(index);
 			return (listener == null ? string.Empty : listener.methodName);
 		}
 
@@ -168,7 +168,7 @@ namespace Testity.Unity3D.Events
 		public UnityEngine.Object GetPersistentTarget(int index)
 		{
 			UnityEngine.Object obj;
-			PersistentCall listener = this.m_PersistentCalls.GetListener(index);
+			TestityPersistentCall listener = this.m_PersistentCalls.GetListener(index);
 			if (listener == null)
 			{
 				obj = null;
@@ -238,14 +238,14 @@ namespace Testity.Unity3D.Events
 			}
 		}
 
-		public void RegisterBoolPersistentListener(int index, UnityAction<bool> call, bool argument)
+		public void RegisterBoolPersistentListener(int index, TestityAction<bool> call, bool argument)
 		{
 			if (call == null)
 			{
 				Debug.LogWarning("Registering a Listener requires an action");
 				return;
 			}
-			if (!this.ValidateRegistration(call.Method, call.Target, PersistentListenerMode.Bool))
+			if (!this.ValidateRegistration(call.Method, call.Target, TestityPersistentListenerMode.Bool))
 			{
 				return;
 			}
@@ -253,14 +253,14 @@ namespace Testity.Unity3D.Events
 			this.DirtyPersistentCalls();
 		}
 
-		public void RegisterFloatPersistentListener(int index, UnityAction<float> call, float argument)
+		public void RegisterFloatPersistentListener(int index, TestityAction<float> call, float argument)
 		{
 			if (call == null)
 			{
 				Debug.LogWarning("Registering a Listener requires an action");
 				return;
 			}
-			if (!this.ValidateRegistration(call.Method, call.Target, PersistentListenerMode.Float))
+			if (!this.ValidateRegistration(call.Method, call.Target, TestityPersistentListenerMode.Float))
 			{
 				return;
 			}
@@ -268,14 +268,14 @@ namespace Testity.Unity3D.Events
 			this.DirtyPersistentCalls();
 		}
 
-		public void RegisterIntPersistentListener(int index, UnityAction<int> call, int argument)
+		public void RegisterIntPersistentListener(int index, TestityAction<int> call, int argument)
 		{
 			if (call == null)
 			{
 				Debug.LogWarning("Registering a Listener requires an action");
 				return;
 			}
-			if (!this.ValidateRegistration(call.Method, call.Target, PersistentListenerMode.Int))
+			if (!this.ValidateRegistration(call.Method, call.Target, TestityPersistentListenerMode.Int))
 			{
 				return;
 			}
@@ -283,14 +283,14 @@ namespace Testity.Unity3D.Events
 			this.DirtyPersistentCalls();
 		}
 
-		public void RegisterObjectPersistentListener<T>(int index, UnityAction<T> call, T argument)
+		public void RegisterObjectPersistentListener<T>(int index, TestityAction<T> call, T argument)
 		where T : UnityEngine.Object
 		{
 			if (call == null)
 			{
 				throw new ArgumentNullException("call", "Registering a Listener requires a non null call");
 			}
-			if (!this.ValidateRegistration(call.Method, call.Target, PersistentListenerMode.Object, (argument != null ? argument.GetType() : typeof(UnityEngine.Object))))
+			if (!this.ValidateRegistration(call.Method, call.Target, TestityPersistentListenerMode.Object, (argument != null ? argument.GetType() : typeof(UnityEngine.Object))))
 			{
 				return;
 			}
@@ -300,7 +300,7 @@ namespace Testity.Unity3D.Events
 
 		protected void RegisterPersistentListener(int index, object targetObj, MethodInfo method)
 		{
-			if (!this.ValidateRegistration(method, targetObj, PersistentListenerMode.EventDefined))
+			if (!this.ValidateRegistration(method, targetObj, TestityPersistentListenerMode.EventDefined))
 			{
 				return;
 			}
@@ -308,14 +308,14 @@ namespace Testity.Unity3D.Events
 			this.DirtyPersistentCalls();
 		}
 
-		public void RegisterStringPersistentListener(int index, UnityAction<string> call, string argument)
+		public void RegisterStringPersistentListener(int index, TestityAction<string> call, string argument)
 		{
 			if (call == null)
 			{
 				Debug.LogWarning("Registering a Listener requires an action");
 				return;
 			}
-			if (!this.ValidateRegistration(call.Method, call.Target, PersistentListenerMode.String))
+			if (!this.ValidateRegistration(call.Method, call.Target, TestityPersistentListenerMode.String))
 			{
 				return;
 			}
@@ -323,14 +323,14 @@ namespace Testity.Unity3D.Events
 			this.DirtyPersistentCalls();
 		}
 
-		public void RegisterVoidPersistentListener(int index, UnityAction call)
+		public void RegisterVoidPersistentListener(int index, TestityAction call)
 		{
 			if (call == null)
 			{
 				Debug.LogWarning("Registering a Listener requires an action");
 				return;
 			}
-			if (!this.ValidateRegistration(call.Method, call.Target, PersistentListenerMode.Void))
+			if (!this.ValidateRegistration(call.Method, call.Target, TestityPersistentListenerMode.Void))
 			{
 				return;
 			}
@@ -372,9 +372,9 @@ namespace Testity.Unity3D.Events
 		/// </summary>
 		/// <param name="index">Index of the listener to query.</param>
 		/// <param name="state">State to set.</param>
-		public void SetPersistentListenerState(int index, UnityEventCallState state)
+		public void SetPersistentListenerState(int index, TestityEventCallState state)
 		{
-			PersistentCall listener = this.m_PersistentCalls.GetListener(index);
+			TestityPersistentCall listener = this.m_PersistentCalls.GetListener(index);
 			if (listener != null)
 			{
 				listener.callState = state;
@@ -403,12 +403,12 @@ namespace Testity.Unity3D.Events
 			this.DirtyPersistentCalls();
 		}
 
-		protected bool ValidateRegistration(MethodInfo method, object targetObj, PersistentListenerMode mode)
+		protected bool ValidateRegistration(MethodInfo method, object targetObj, TestityPersistentListenerMode mode)
 		{
 			return this.ValidateRegistration(method, targetObj, mode, typeof(UnityEngine.Object));
 		}
 
-		protected bool ValidateRegistration(MethodInfo method, object targetObj, PersistentListenerMode mode, Type argumentType)
+		protected bool ValidateRegistration(MethodInfo method, object targetObj, TestityPersistentListenerMode mode, Type argumentType)
 		{
 			if (method == null)
 			{

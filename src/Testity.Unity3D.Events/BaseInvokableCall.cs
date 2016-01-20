@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Testity.Unity3D.Events
 {
-	public abstract class BaseInvokableCall
+	public abstract class TestityBaseInvokableCall
 	{
-		protected BaseInvokableCall()
+		protected TestityBaseInvokableCall()
 		{
 		}
 
-		protected BaseInvokableCall(object target, MethodInfo function)
+		protected TestityBaseInvokableCall(object target, MethodInfo function)
 		{
 			if (target == null)
 			{
