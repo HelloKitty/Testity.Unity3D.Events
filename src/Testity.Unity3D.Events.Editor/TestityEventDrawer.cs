@@ -295,7 +295,7 @@ namespace Testity.Unity3D.Events.Editor
 			GUIContent content;
 			if (EditorGUI.showMixedValue)
 			{
-				content = new GUIContent("Temp");// EditorGUI.mixedValueContent;
+				content = new GUIContent("Temp");//MODIFIED: EditorGUI.mixedValueContent;
 			}
 			else
 			{
@@ -334,7 +334,7 @@ namespace Testity.Unity3D.Events.Editor
 					}
 				}
 
-				content = new GUIContent("Temp");//GUIContent.Temp(stringBuilder.ToString());
+				content = new GUIContent("Temp");//MODIFIED: GUIContent.Temp(stringBuilder.ToString());
 			}
 			if (GUI.Button(rect2, content, EditorStyles.popup))
 			{

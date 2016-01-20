@@ -88,17 +88,17 @@ namespace Testity.Unity3D.Events
 	///   <para>One argument version of UnityEvent.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class UnityEvent<T0> : TestityEventBase
+	public abstract class TestityEvent<T0> : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray;
 
-		protected UnityEvent()
+		protected TestityEvent()
 		{
 		}
 
 		public void AddListener(TestityAction<T0> call)
 		{
-			base.AddCall(UnityEvent<T0>.GetDelegate(call));
+			base.AddCall(TestityEvent<T0>.GetDelegate(call));
 		}
 
 		public void AddPersistentListener(TestityAction<T0> call)
@@ -155,17 +155,17 @@ namespace Testity.Unity3D.Events
 	///   <para>Two argument version of UnityEvent.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class UnityEvent<T0, T1> : TestityEventBase
+	public abstract class TestityEvent<T0, T1> : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray;
 
-		protected UnityEvent()
+		protected TestityEvent()
 		{
 		}
 
 		public void AddListener(TesityAction<T0, T1> call)
 		{
-			base.AddCall(UnityEvent<T0, T1>.GetDelegate(call));
+			base.AddCall(TestityEvent<T0, T1>.GetDelegate(call));
 		}
 
 		public void AddPersistentListener(TesityAction<T0, T1> call)
@@ -223,17 +223,17 @@ namespace Testity.Unity3D.Events
 	///   <para>Three argument version of UnityEvent.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class UnityEvent<T0, T1, T2> : TestityEventBase
+	public abstract class TesityEvent<T0, T1, T2> : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray;
 
-		protected UnityEvent()
+		protected TesityEvent()
 		{
 		}
 
 		public void AddListener(TestityAction<T0, T1, T2> call)
 		{
-			base.AddCall(UnityEvent<T0, T1, T2>.GetDelegate(call));
+			base.AddCall(TesityEvent<T0, T1, T2>.GetDelegate(call));
 		}
 
 		public void AddPersistentListener(TestityAction<T0, T1, T2> call)
@@ -292,17 +292,17 @@ namespace Testity.Unity3D.Events
 	///   <para>Four argument version of UnityEvent.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class UnityEvent<T0, T1, T2, T3> : TestityEventBase
+	public abstract class TestityEvent<T0, T1, T2, T3> : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray;
 
-		protected UnityEvent()
+		protected TestityEvent()
 		{
 		}
 
 		public void AddListener(TestityAction<T0, T1, T2, T3> call)
 		{
-			base.AddCall(UnityEvent<T0, T1, T2, T3>.GetDelegate(call));
+			base.AddCall(TestityEvent<T0, T1, T2, T3>.GetDelegate(call));
 		}
 
 		public void AddPersistentListener(TestityAction<T0, T1, T2, T3> call)
