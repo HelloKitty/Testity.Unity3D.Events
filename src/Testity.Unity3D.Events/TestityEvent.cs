@@ -237,11 +237,11 @@ namespace Testity.Unity3D.Events
 	///   <para>Three argument version of UnityEvent.</para>
 	/// </summary>
 	[Serializable]
-	public abstract class TesityEvent<T0, T1, T2> : TestityEventBase
+	public abstract class TestityEvent<T0, T1, T2> : TestityEventBase
 	{
 		private readonly object[] m_InvokeArray;
 
-		protected TesityEvent()
+		protected TestityEvent()
 		{
 			if (m_InvokeArray == null)
 				m_InvokeArray = new object[3];
@@ -249,7 +249,7 @@ namespace Testity.Unity3D.Events
 
 		public void AddListener(TestityAction<T0, T1, T2> call)
 		{
-			base.AddCall(TesityEvent<T0, T1, T2>.GetDelegate(call));
+			base.AddCall(TestityEvent<T0, T1, T2>.GetDelegate(call));
 		}
 
 		public void AddPersistentListener(TestityAction<T0, T1, T2> call)
