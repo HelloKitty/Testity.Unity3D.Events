@@ -27,8 +27,28 @@ namespace Testity.Unity3D.Events
 
 		protected bool CheckIsTestityTarget(object target)
 		{
+			if (target == null)
+				throw new ArgumentNullException(nameof(target), "Unboxing target cannot be null.");
+
 			return typeof(ITestityBehaviour).IsAssignableFrom(target.GetType());
         }
+
+		protected virtual object UnboxTestityComponentFromObject(object target)
+		{
+			if (target == null)
+				throw new ArgumentNullException(nameof(target), "Unboxing target cannot be null.");
+
+			//if it's a testitybehaviour we need to get a reference to the EngineScriptComponent
+			ITestityBehaviour b = target as ITestityBehaviour;
+
+			//We get an untypes reference so we can build a delegate to it.
+			object scriptComponent = b.GetUntypedScriptComponent;
+
+			if (scriptComponent == null)
+				throw new InvalidOperationException("Failed to unbox testity component. Type: " + target.GetType().FullName);
+
+			return scriptComponent;
+		}
 
 		protected static bool AllowInvoke(Delegate @delegate)
 		{
