@@ -41,8 +41,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtendedEvent.cs" />
+    <Compile Include="ArgumentCache.cs" />
+    <Compile Include="BaseInvokableCall.cs" />
+    <Compile Include="CachedInvokableCall.cs" />
+    <Compile Include="InvokableCall.cs" />
+    <Compile Include="InvokableCallList.cs" />
+    <Compile Include="NetFXCoreExtensions.cs" />
+    <Compile Include="PersistentCall.cs" />
+    <Compile Include="PersistentListenerMode.cs" />
+    <Compile Include="PresistentCallGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnityAction.cs" />
+    <Compile Include="UnityEvent.cs" />
+    <Compile Include="UnityEventBase.cs" />
+    <Compile Include="UnityEventCallState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
