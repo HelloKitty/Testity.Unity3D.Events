@@ -333,7 +333,8 @@ namespace Testity.Unity3D.Events.Editor
 						}
 					}
 				}
-				content = GUIContent.Temp(stringBuilder.ToString());
+
+				content = new GUIContent("Temp");//GUIContent.Temp(stringBuilder.ToString());
 			}
 			if (GUI.Button(rect2, content, EditorStyles.popup))
 			{
