@@ -10,14 +10,11 @@ namespace Testity.Unity3D.Events
 			: base(target, theFunction)
 		{
 			//We need to check if it's a TestityBehaviour first
-			if(typeof(ITestityBehaviour).IsAssignableFrom(target.GetType()))
+			if (CheckIsTestityTarget(target))
 			{
-				//if it's a testitybehaviour we need to get a reference to the EngineScriptComponent
-				ITestityBehaviour b = target as ITestityBehaviour;
-
-				//We get an untypes reference so we can build a delegate to it.
-				target = b.GetUntypedScriptComponent;
-			}
+				//if it is we need to unbox the EngineScriptComponent reference from the TestityBehaviour
+				target = UnboxTestityComponentFromObject(target);
+			}				
 
 			this.Delegate += (TestityAction)theFunction.CreateDelegate(Type.GetTypeFromHandle(typeof(TestityAction).TypeHandle), target);
 		}
